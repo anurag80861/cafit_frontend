@@ -23,7 +23,7 @@ function App() {
         dispatch(setCart(cart));
       })
       .catch(err => console.log(err))
-  }, [dispatch]);
+  }, []);
 
   return (
     <div>
@@ -32,7 +32,7 @@ function App() {
         <Route path="/" element={<Homepage />} />
         <Route path="/cart" element={<CartPage />} />
         <Route path="/counters" element={<CounterPage />} />
-        <Route path='/dishes' element={<DishPage/>}/>
+        <Route path='/dishes' element={<DishPage />} />
         {/* <Route path="/profile" element={<ProfilePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/signup" element={<SignUpPage/>} /> */}

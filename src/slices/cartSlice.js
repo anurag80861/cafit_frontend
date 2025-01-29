@@ -9,6 +9,7 @@ const cartSlice = createSlice({
     setCart: (state, action) => {
       state.items = action.payload;
     }
+    
   },
 });
 

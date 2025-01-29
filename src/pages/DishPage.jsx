@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setDish } from '../slices/dishSlice';
+import { setCart } from '../slices/cartSlice';
 
 function DishPage() {
     const dispatch = useDispatch();
@@ -16,9 +17,16 @@ function DishPage() {
             .catch(err => console.log(err));
     }, [dispatch]);
 
-    const handleAddToCart = (dish) => {
-        // Add your cart logic here
-        alert(`Added ${dish.name} to cart!`);
+    //:Logic of Add to cart from dishes 
+
+    const handleAddToCart = async (dishId) => {
+        try {
+            const response = await axios.post(`http://localhost:5500/cart/${dishId}`);
+            console.log("response", response)
+            dispatch(setCart(response.data));
+        } catch (err) {
+            console.log(err)
+        }
     };
 
     return (
@@ -27,7 +35,7 @@ function DishPage() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                 {products.map(dish => (
                     <div
-                        key={dish.id}
+                        key={dish._id}
                         className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow"
                     >
                         <h3 className="text-xl font-semibold mb-2">{dish.name}</h3>
@@ -47,7 +55,7 @@ function DishPage() {
                             </span>
                         </div>
                         <button
-                            onClick={() => handleAddToCart(dish)}
+                            onClick={() => handleAddToCart(dish._id)}
                             className="mt-4 px-2 py-1 w-32 bg-red-600 text-white text-sm rounded-md hover:bg-blue-600 transition-colors"
                         >
                             Add to Cart
